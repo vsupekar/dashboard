@@ -1,0 +1,6 @@
+<button class="button" [disabled]="isDisabled" (click)="handleClick()">
+  @if (icon) {
+    <i [class]="icon"></i>
+  }
+  <span>{{ label }}</span>
+</button>

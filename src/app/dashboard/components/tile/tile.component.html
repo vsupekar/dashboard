@@ -1,0 +1,72 @@
+<div
+  class="tile"
+  [style.background-color]="getBackgroundColor()"
+  [style.border-color]="getBorderColor()"
+  [class.draggable]="isDraggable">
+
+  <div class="tile-header">
+    <h3 class="tile-title">{{ tile.title }}</h3>
+    <div class="tile-actions">
+      <button class="action-btn edit-btn" (click)="onEdit()" title="Edit">
+        ✏️
+      </button>
+      <button class="action-btn delete-btn" (click)="onDelete()" title="Delete">
+        🗑️
+      </button>
+    </div>
+  </div>
+
+  <div class="tile-content">
+    @if (tile.type === TileType.METRIC) {
+      <div class="metric-content">
+        <div class="metric-value">{{ tile.data?.value || 0 }}</div>
+        <div class="metric-label">{{ tile.data?.label || 'Metric' }}</div>
+      </div>
+    }
+
+    @if (tile.type === TileType.TEXT) {
+      <div class="text-content">
+        <p>{{ tile.data?.text || 'Text content here' }}</p>
+      </div>
+    }
+
+    @if (tile.type === TileType.CHART) {
+      <div class="chart-content">
+        <div class="chart-placeholder">
+          <span>📊 Chart: {{ tile.title }}</span>
+          <small>Chart data ready</small>
+        </div>
+      </div>
+    }
+
+    @if (tile.type === TileType.TABLE) {
+      <div class="table-content">
+        <div class="table-placeholder">
+          <span>📋 Table: {{ tile.title }}</span>
+          <small>Table data ready</small>
+        </div>
+      </div>
+    }
+
+    @if (tile.type === TileType.CUSTOM) {
+      <div class="custom-content">
+        <div class="custom-placeholder">
+          <span>⚙️ Custom: {{ tile.title }}</span>
+          <small>Custom component</small>
+        </div>
+      </div>
+    }
+
+    @if (tile.type === TileType.EXTERNAL) {
+      <div class="external-content">
+        <ng-template #externalContainer></ng-template>
+        @if (!tile.externalComponent) {
+          <div class="external-placeholder">
+            <span>🔌 External Component</span>
+            <small>No component provided</small>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>
